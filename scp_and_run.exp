@@ -1,0 +1,38 @@
+#!/usr/bin/expect -f
+
+##Only works when file is in same directory as script
+
+
+# $1 = Server IP
+# $2 = user
+# $3 = password
+# $4 = name of file to copy 
+
+set timeout 20
+set ip [lindex $argv 0]
+set user [lindex $argv 1]
+set password [lindex $argv 2]
+set script [lindex $argv 3]
+
+spawn scp $script "$user\@$ip:$script" 
+#######################
+expect {
+	-re ".*es.*o.*" {
+		exp_send "yes\r"
+		exp_continue
+	}
+	-re ".*sword.*" {
+		exp_send "$password\r"
+	}
+}
+expect "$ "
+spawn ssh "$user\@$ip"
+expect "assword:"
+send "$password\r"
+expect "$ "
+send "./$script\r"
+expect "$ "
+send "rm $script\r"
+expect "$ "
+send "exit\r"
+interact
