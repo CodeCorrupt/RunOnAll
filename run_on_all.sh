@@ -3,6 +3,12 @@
 # $1 = script to run
 # $2 = file with all the connection info
 
+# Format of the input file...
+# 
+# IP         |Username   |Password
+# ---------------------------------
+# 10.0.0.1   |thoyt      |P@ssw0rd1
+
 exec 3<$2  # open fd 3 for read
 script=$1
 while read -u 3 line  # read line from fd 3
