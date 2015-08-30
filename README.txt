@@ -1,0 +1,1 @@
+This program reads a list of IP addressed, SCPs a file to them, logs in, runs that file, then deletes the file off.
